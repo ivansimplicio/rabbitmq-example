@@ -8,8 +8,8 @@ export class UserController {
     this.userService = new UserService();
   }
 
-  public create(request: Request, response: Response) {
-    const user = this.userService.insert(request.body);
+  public async create(request: Request, response: Response) {
+    const user = await this.userService.insert(request.body);
     response.status(201).json({ user });
   }
 

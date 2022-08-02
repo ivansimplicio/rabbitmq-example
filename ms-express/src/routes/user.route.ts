@@ -4,7 +4,7 @@ import { Request, Response, Router } from 'express';
 const userRouter = Router();
 const userController = new UserController();
 
-userRouter.post('/', (req: Request, res: Response) => {
+userRouter.post('/', async (req: Request, res: Response) => {
   return userController.create(req, res);
 });
 

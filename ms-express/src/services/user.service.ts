@@ -9,7 +9,7 @@ export class UserService {
   constructor() {
     this.userRepository = new UserRepository();
     this.rabbitMQServer = new RabbitMQServer(
-      'amqp://admin:admin@127.0.0.1:5672'
+      `amqp://admin:admin@${process.env.HOST}:5672`
     );
   }
 

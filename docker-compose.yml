@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  ms-express:
+    container_name: ms-express
+    build: ./ms-express
+    command: npm run dev
+    image: ms-express
+    depends_on:
+      - rabbitmq
+    ports:
+      - 3000:3000
+    volumes:
+      - ./ms-express:/usr/app
+    environment:
+      - HOST=rabbitmq
+
+  ms-nest:
+    container_name: ms-nest
+    build: ./ms-nest
+    command: npm run start:dev
+    image: ms-nest
+    depends_on:
+      - rabbitmq
+    ports:
+      - 3001:3001
+    volumes:
+      - ./ms-nest:/usr/app
+    environment:
+      - HOST=rabbitmq
+
+  rabbitmq:
+    image: "rabbitmq:3.10.6-management-alpine"
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - "./.rabbitmq_data:/var/lib/rabbitmq/mnesia"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
